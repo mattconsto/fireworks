@@ -43,16 +43,19 @@ function HSVtoRGB(h, s, v) {
 
 var drawing = false;
 
-canvas.addEventListener("mousedown", function(event) {drawing = true;getPosition(event);}, false);
-canvas.addEventListener("mouseup", function(event) {drawing = false;}, false);
-canvas.addEventListener("mousemove", getPosition, false);
+canvas.addEventListener("mousedown", function(event) {drawing = true; getPosition(event);});
+canvas.addEventListener("touchstart", function(event) {drawing = true; getPosition(event); event.preventDefault(); return false;});
+canvas.addEventListener("mouseup", function(event) {drawing = false;});
+canvas.addEventListener("touchend", function(event) {drawing = false;});
+canvas.addEventListener("mousemove", getPosition);
+canvas.addEventListener("touchmove", getPosition);
 window.addEventListener('resize', resizeCanvas);
 
 function getPosition(event) {
 	if(!drawing) return;
 
-  var x = event.x/scaling - canvas.offsetLeft;
-  var y = event.y/scaling - canvas.offsetTop;
+  var x = (event.x || event.touches[0].clientX)/scaling - canvas.offsetLeft;
+  var y = (event.y || event.touches[0].clientY)/scaling - canvas.offsetTop;
 
   var color = HSVtoRGB(Math.random(), Math.random()*0.5+0.5, 1);
 
@@ -66,6 +69,8 @@ function getPosition(event) {
   	color: "rgb("+color.r+", "+color.g+", "+color.b+")",
   	explosions: Math.round(Math.random()+1)
   });
+
+  return false;
 }
 
 function resizeCanvas(){
