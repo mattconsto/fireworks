@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Fireworks</title>
+	<title>Fireworks | Matt Consto</title>
 	<meta name="theme-color" content="#000010" />
 	<style>
-		body {
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
-			background: black;
-		}
-		canvas {
-			image-rendering: pixelated;
-		}
+		body {margin: 0; padding: 0; overflow: hidden; background: black; color: #f0f0d0; font-family: sans-serif; font-size: 1.25em}
+		canvas {image-rendering: pixelated}
+		#toolbar {position: fixed; bottom: 1em; left: 0; right: 0; text-align: center}
+		a {color: #f0f0d0; text-decoration: none}
+		a:hover {text-decoration: underline}
+		select, button {background: black; color: #f0f0d0; border: 1px solid; font-size: 1em}
+		.active {background: #f0f0d0; color: black}
 	</style>
 </head>
 <body>
 	<canvas id="canvas"></canvas>
+	<div id="toolbar">
+		By <a href="https://consto.uk/">Matt Consto</a> | Options 
+		<select onchange="tool = window['create' + this.value]">
+			<option>Confetti</option>
+			<option selected="selected">Fireworks</option>
+			<option>Flame</option>
+			<option>Raindrops</option>
+			<option>Snowfall</option>
+		</select>
+		<button onclick="raining = !raining; this.classList.toggle('active')">Raining</button>
+		<button onclick="snowing = !snowing; this.classList.toggle('active')">Snowing</button>
+	</div>
 	<script src="script.js"></script>
 </body>
 </html>
